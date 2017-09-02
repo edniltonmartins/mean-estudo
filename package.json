@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/edniltonmartins/mean-estudo/issues"
   },
-  "homepage": "https://github.com/edniltonmartins/mean-estudo#readme"
+  "homepage": "https://github.com/edniltonmartins/mean-estudo#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
 }
