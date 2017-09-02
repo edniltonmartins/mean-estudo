@@ -1,0 +1,25 @@
+{
+  "name": "mean-estudo",
+  "version": "0.0.1",
+  "description": "Estudo de mean",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edniltonmartins/mean-estudo.git"
+  },
+  "keywords": [
+    "mongodb",
+    "express",
+    "angular",
+    "nodejs"
+  ],
+  "author": "Ednilton Martins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edniltonmartins/mean-estudo/issues"
+  },
+  "homepage": "https://github.com/edniltonmartins/mean-estudo#readme"
+}
