@@ -1,18 +1,18 @@
 # mean-estudo
 
-<h3>Começando com Node JS</h3>
+<h3>Começando com NodeJS</h3>
 
-Criando nosso primeiro Servidor com NodeJS
+Criando nosso primeiro Servidor com <b>NodeJS</b>
 
-<h3>Vamos adicionar o Express para facilitar a nossa vida na criação de middlewares, rotas e segurança</h3>
+<h3>Vamos adicionar o <b>Express</b> para facilitar a nossa vida na criação de middlewares, rotas e segurança</h3>
 
-Vamos instalar o express com o seguinte comando:
+Vamos instalar o <b>Express</b> com o seguinte comando:
 
     npm install express --save
 
 <h3>Começando com Express</h3>
 
-Vamos criar um arquivo que carregará o express e suas configurações para toda a aplicação.
+Vamos criar um arquivo que carregará o <b>express</b> e suas configurações para toda a aplicação.
 
     var express = require("express");
 
@@ -23,7 +23,7 @@ Vamos criar um arquivo que carregará o express e suas configurações para toda
 
     };
 
-Vamos criar um arquivo chamado server.js para carregar o express e coloca-lo como listener para o http.
+Vamos criar um arquivo chamado <b><i>server.js</i></b> para carregar o <b>Express</b> e coloca-lo como listener para o <b>http</b>.
 
 Vejamos:
 
@@ -47,10 +47,10 @@ Vejamos como ficou:
         var app = express();
         
         // configuração de ambiente
-        app.set('port', 3000);
+        <b>app.set('port', 3000);</b>
         
         // middleware
-        app.use(express.static('./public'));
+        <b>app.use(express.static('./public'));</b>
 
         return app;
     };
