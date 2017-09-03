@@ -6,38 +6,39 @@ Criando nosso primeiro Servidor com NodeJS
 
 <h3>Vamos adicionar o Express para facilitar a nossa vida na criação de middlewares, rotas e segurança</h3>
 
-Vamos instalar o express com o seguinte comando:</br>
-npm install express --save
+Vamos instalar o express com o seguinte comando:
+
+    npm install express --save
 
 <h3>Começando com Express</h3>
 
-Vamos criar um arquivo que carregará o express e suas configurações para toda a aplicação</br>
+Vamos criar um arquivo que carregará o express e suas configurações para toda a aplicação.
 
-var express = require("express");
+    var express = require("express");
 
-module.exports = function(){
+    module.exports = function(){
 
-    var app = express();
+        var app = express();
+        return app;
 
-    return app;
+    };
 
-};
-
-</br>
 Vamos criar um arquivo chamado server.js para carregar o express e coloca-lo como listener para o http.
 
-Veja:</br>
-var http = require("http");
+Vejamos:
 
-var app = require("./config/express")();
+    var http = require("http");
+    var app = require("./config/express")();
 
-http.createServer(app).listen(app.get('port'), function(){</br>
-    console.log("Express server escutando na porta " + app.get("port"));</br>
-}); </br>
+    http.createServer(app).listen(app.get('port'), function(){
+
+        console.log("Express server escutando na porta " + app.get("port"));
+
+    });
 
 <h3>Vamos agora adicionar a configuração de porta e páginas estáticas</h3>
 
-Vejamos como ficou:</br>
+Vejamos como ficou:
 
     // config/express.js
     var express = require('express');
@@ -58,15 +59,13 @@ Vejamos como ficou:</br>
 
 Primeiramente teremos que instalar o ejs para termos páginas dinâmicas e templates</br>
 
-Veja:</br>
+Vejamos:
 
     npm install ejs --save
 
-</br>
 Reparemos que o --save faz com que a dependência seja adicionada no package.json
  
-</br>
-Agora devemos adicionar as configurações para que o express possa encontrar os templates e saiba onde está as suas páginas</br>
+Agora devemos adicionar as configurações para que o express possa encontrar os templates e saiba onde está as suas páginas
 
 Vejamos:
 
@@ -78,14 +77,13 @@ Vejamos:
 
     app.set('views','./app/views');
 
-</br>
-Agora precisaremos de uma página com extensão ejs igual a index.html lá na pasta app/views que é onde dissemos para o express que estarão os templates</br>
+Agora precisaremos de uma página com extensão ejs igual a index.html lá na pasta app/views que é onde dissemos para o express que estarão os templates.
 
 <h3>Configurando rotas</h3>
 
-Vamos criar um arquivo de rotas para cada um e receber a instância do express, desta forma poderemos reutilizar código</br>
+Vamos criar um arquivo de rotas para cada um e receber a instância do express, desta forma poderemos reutilizar código.
 
-Agora como fica o código do módulo:</br>
+Agora como fica o código do módulo:
 
     // app/routes/home.js
     module.exports = function(app){
@@ -107,9 +105,9 @@ Vejamos:
 
 Para seguir o padrão MVC, então criaremos objetos que disponibilizam as rotas e chegam até as informações que serão colocadas no models a fim de chegarem até as views.
 
-</br>
+Vamos criar um controller na pasta app/controllers.
 
-Vamos criar um controller na pasta app/controllers</br>
+Vejamos:
 
     module.exports = function() {
         var controller = {};
@@ -142,19 +140,5 @@ Vejamos:
 
     };
 
-Perceba que a rota home aponta a url "/" e também a url "/index" para o metódo index do controller 
-home.
+Vamos Perceber que a rota home aponta a url "/" e também a url "/index" para o metódo index do controller home. Perceba também que o controller em seu metodo index faz a renderização de uma view chamada index e passa para ela um parâmetro chamado nome com o valor "Express".
 
-Vejamos abaixo o controller home:
-
-    // app/controllers/home.js
-
-    module.exports = function(){
-        var controller = {};
-        controller.index = function(req, res){
-            res.render('index', {nome : 'Express'});
-        };
-        return controller;
-    }
-
-Perceba que o controller em seu metodo index faz a renderização de uma view chamada index e passa para ela um parâmetro chamado nome com o valor "Express".
