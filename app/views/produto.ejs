@@ -1,0 +1,17 @@
+<!-- app/views/index.ejs -->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Lista de Produtos</h1>
+    <ul>
+    <% for (var indice in listaProdutos ) { %>
+        <li><%= listaProdutos[indice]._id %>  -- <%= listaProdutos[indice].nome %></li>
+      <% } %>
+    </ul>
+      
+</body>
+</html>

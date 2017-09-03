@@ -23,8 +23,10 @@
   },
   "homepage": "https://github.com/edniltonmartins/mean-estudo#readme",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "ejs": "^2.5.7",
     "express": "^4.15.4",
-    "express-load": "^1.1.16"
+    "express-load": "^1.1.16",
+    "method-override": "^2.3.9"
   }
 }

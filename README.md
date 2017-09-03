@@ -39,23 +39,20 @@ http.createServer(app).listen(app.get('port'), function(){</br>
 
 Vejamos como ficou:</br>
 
-    // config/express.js</br>
-    var express = require('express');</br>
+    // config/express.js
+    var express = require('express');
 
-    module.exports = function() {</br>
-        var app = express();</br>
+    module.exports = function() {
+        var app = express();
         
+        // configuração de ambiente
+        app.set('port', 3000);
         
-        // configuração de ambiente</br>
-        app.set('port', 3000);</br>
-        
-        
-        // middleware</br>
-        app.use(express.static('./public'));</br>
+        // middleware
+        app.use(express.static('./public'));
 
-
-        return app;</br>
-    };</br>
+        return app;
+    };
 
 <h3>View e template engine</h3>
 
@@ -63,24 +60,23 @@ Primeiramente teremos que instalar o ejs para termos páginas dinâmicas e templ
 
 Veja:</br>
 
-npm install ejs --save
+    npm install ejs --save
 
 </br>
 Reparemos que o --save faz com que a dependência seja adicionada no package.json
  
-</br></br>
-
+</br>
 Agora devemos adicionar as configurações para que o express possa encontrar os templates e saiba onde está as suas páginas</br>
 
-vejamos:
+Vejamos:
 
-// config/express.js
+    // config/express.js
 
-// abaixo do middleware express.static
+    // abaixo do middleware express.static
 
-app.set('view engine', 'ejs');
+    app.set('view engine', 'ejs');
 
-app.set('views','./app/views');
+    app.set('views','./app/views');
 
 </br>
 Agora precisaremos de uma página com extensão ejs igual a index.html lá na pasta app/views que é onde dissemos para o express que estarão os templates</br>
@@ -91,19 +87,21 @@ Vamos criar um arquivo de rotas para cada um e receber a instância do express, 
 
 Agora como fica o código do módulo:</br>
 
-// app/routes/home.js
-module.exports = function(app){
-    app.get("/");
-}</br>
+    // app/routes/home.js
+    module.exports = function(app){
+        app.get("/");
+    }
 
-Agora precisaremos colocar essa referência lá no server. Vejamos:
+Agora precisaremos colocar essa referência lá no server. 
 
-// config/express.js
-...
-var home = require('./app/routes/home')
-...
-// abaixo da configuração do último middleware
-home(app);
+Vejamos:
+
+    // config/express.js
+    ...
+    var home = require('./app/routes/home')
+    ...
+    // abaixo da configuração do último middleware
+    home(app);
 
 <h3>Criando controllers</h3>
 
@@ -113,34 +111,50 @@ Para seguir o padrão MVC, então criaremos objetos que disponibilizam as rotas 
 
 Vamos criar um controller na pasta app/controllers</br>
 
-module.exports = function() {
+    module.exports = function() {
+        var controller = {};
 
-    var controller = {};
+        controller.index = function(req, res) {
+            res.render('index', {nome: 'Express'});
+        };
 
-    controller.index = function(req, res) {
-
-    res.render('index', {nome: 'Express'});
-
-};
-
-return controller;
-}
+    return controller;
+    }
 
 <h3>Passando o valor para variável nome antes de processar o template</h3>
 
 Veja:
 
-res.render('index', {nome: 'Express'});
+    res.render('index', {nome: 'Express'});
 
 <h3>Ligando a rota ao controller</h3>
 
-Veja:
+É preciso fazer a rota estar ligada ao controller para que desta forma o controller popule um model e passe isso para a view.
 
-// app/routes/home.js
-var controller = require('../controllers/home')();
+Vejamos:
 
-module.exports = function(app){
-    app.get('/', controller.index);
-    app.get('/index', controller.index);
+    // app/routes/home.js
+    var controller = require('../controllers/home')();
+ 
+    module.exports = function(app){
+        app.get('/', controller.index);
+        app.get('/index', controller.index);
 
-};
+    };
+
+Perceba que a rota home aponta a url "/" e também a url "/index" para o metódo index do controller 
+home.
+
+Vejamos abaixo o controller home:
+
+    // app/controllers/home.js
+
+    module.exports = function(){
+        var controller = {};
+        controller.index = function(req, res){
+            res.render('index', {nome : 'Express'});
+        };
+        return controller;
+    }
+
+Perceba que o controller em seu metodo index faz a renderização de uma view chamada index e passa para ela um parâmetro chamado nome com o valor "Express".
